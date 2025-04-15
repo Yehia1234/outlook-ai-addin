@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Email Assistant</title>
+
+    <!-- Office JavaScript API -->
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+
+    <!-- Optional: Fluent UI styling -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"/>
+
+    <!-- Your Custom Styles -->
+    <link rel="stylesheet" href="taskpane.css">
+</head>
+
+<body class="ms-Fabric" dir="ltr">
+    <div id="main-content" class="ms-Panel-contentInner ms-padding-10">
+
+        <h1 class="ms-fontSize-xl">AI Assistant</h1>
+        <p class="ms-fontSize-m" id="status">Loading...</p>
+
+        <!-- Section for specific actions (dynamically shown/hidden) -->
+        <div id="action-area">
+            <!-- e.g., Mood Scanner -->
+            <div id="mood-scanner-section" style="display: none;">
+                <h2>Mood Scan Results</h2>
+                <div id="mood-analysis"></div>
+                <div id="mood-suggestions"></div>
+                <button id="apply-mood-suggestion" class="ms-Button ms-Button--primary" style="display:none;">
+                    <span class="ms-Button-label">Apply Suggestion</span>
+                </button>
+            </div>
+
+            <!-- e.g., Reply Generator -->
+            <div id="reply-section" style="display: none;">
+                <h2>Suggested Reply</h2>
+                <textarea id="reply-text" rows="10" style="width: 95%;"></textarea>
+                <button id="insert-reply" class="ms-Button ms-Button--primary">
+                    <span class="ms-Button-label">Insert Reply Draft</span>
+                </button>
+            </div>
+
+            <!-- e.g., Summarizer -->
+            <div id="summary-section" style="display: none;">
+                <h2>Summary</h2>
+                <div id="summary-content"></div>
+                <h3>Key Decisions</h3>
+                <div id="summary-decisions"></div>
+                <h3>Action Items</h3>
+                <div id="summary-actions"></div>
+                 <!-- Placeholder - Actual Planner/To-Do integration needs Graph API -->
+                <p class="ms-fontSize-s"><i>(Action items listed here. Integration with To-Do/Planner requires advanced setup.)</i></p>
+            </div>
+
+             <!-- e.g., Translator -->
+            <div id="translate-section" style="display: none;">
+                <h2>Translation (Arabic)</h2>
+                <div id="translation-output"></div>
+                <h2>Cultural Tips</h2>
+                <div id="cultural-tips"></div>
+                 <button id="insert-translation" class="ms-Button ms-Button--primary" style="display:none;">
+                    <span class="ms-Button-label">Insert Translation</span>
+                </button>
+            </div>
+
+            <!-- e.g., Follow-Up Check -->
+             <div id="followup-section" style="display: none;">
+                <h2>Follow-Up Check</h2>
+                <div id="followup-status">Checking...</div>
+                <button id="send-reminder-prompt" class="ms-Button ms-Button--primary" style="display:none;">
+                    <span class="ms-Button-label">Draft Reminder Email</span>
+                </button>
+            </div>
+
+             <!-- e.g., Settings -->
+            <div id="settings-section" style="display: none;">
+                <h2>Settings</h2>
+                <label for="api-key-input">Google Gemini API Key:</label>
+                <input type="password" id="api-key-input" style="width: 95%; margin-bottom: 10px;">
+                <button id="save-api-key" class="ms-Button ms-Button--primary">
+                    <span class="ms-Button-label">Save Key</span>
+                </button>
+                 <p class="ms-fontSize-s ms-fontWeight-warning">Warning: Storing API keys client-side is insecure for production use.</p>
+            </div>
+        </div>
+
+         <!-- Generic Result/Approval Area -->
+        <div id="approval-area" style="display: none; border: 1px solid #ccc; padding: 10px; margin-top: 15px;">
+             <h3 id="approval-title">Confirm Action</h3>
+             <div id="approval-content" style="margin-bottom: 10px; max-height: 200px; overflow-y: auto; background-color: #f4f4f4; padding: 5px;"></div>
+             <button id="approve-action" class="ms-Button ms-Button--primary">
+                 <span class="ms-Button-label">Approve</span>
+             </button>
+             <button id="decline-action" class="ms-Button">
+                 <span class="ms-Button-label">Decline</span>
+             </button>
+        </div>
+
+        <div id="error-area" style="display: none; color: red; margin-top: 15px;">
+            Error: <span id="error-message"></span>
+        </div>
+    </div>
+
+    <!-- Your Custom Logic -->
+    <script type="text/javascript" src="taskpane.js"></script>
+</body>
+</html>
